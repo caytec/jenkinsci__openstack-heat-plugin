@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.SafeConstructor;
 
 import com.arkea.jenkins.openstack.Constants;
 import com.arkea.jenkins.openstack.heat.orchestration.template.Env;
@@ -36,7 +37,7 @@ public class EnvMapperUtils {
 		Map<String, String> parameter_defaults = new HashMap<String, String>();
 		Map<String, String> parameters = new HashMap<String, String>();
 
-		Map<String, Object> yamlObjects = (Map<String, Object>) (new Yaml())
+		Map<String, Object> yamlObjects = (Map<String, Object>) (new Yaml(new SafeConstructor()))
 				.load(yaml);
 		if (yaml.contains(Constants.PARAMETER_DEFAULTS)) {
 			Map<String, Object> yamlParamDefaults = (Map<String, Object>) yamlObjects

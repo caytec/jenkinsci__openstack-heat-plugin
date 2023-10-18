@@ -5,6 +5,7 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.SafeConstructor;
 
 import com.arkea.jenkins.openstack.Constants;
 import com.arkea.jenkins.openstack.heat.orchestration.template.Bundle;
@@ -50,7 +51,7 @@ public class HOTMapperUtils {
 		// Find paramaters or outputs in HOT
 		if (hot.contains(Constants.PARAMETERS)
 				|| hot.contains(Constants.OUTPUTS)) {
-			Map<String, Object> hotObjects = (Map<String, Object>) (new Yaml())
+			Map<String, Object> hotObjects = (Map<String, Object>) (new Yaml(new SafeConstructor()))
 					.load(hot);
 			if (hot.contains(Constants.PARAMETERS)) {
 				stack.setParameters(getParameters(hotObjects));
